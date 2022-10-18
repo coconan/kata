@@ -22,4 +22,8 @@ ipch
 *.sdf
 *.sln
 *.suo
+*.dsp
+*.dsw
+*.ncb
+*.opt
 
