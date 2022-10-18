@@ -3,4 +3,23 @@ obj
 *.cbp
 *.depend
 *.layout
+*.exe 
+*.obj 
+*.ilk 
+*.pdb 
+*.plg 
+*.bsc 
+*.tmp 
+*.trc 
+*.pch 
+*.idb 
+*.exp 
+*.sbr 
+*.res 
+Debug
+*.vcxproj*
+ipch
+*.sdf
+*.sln
+*.suo
 

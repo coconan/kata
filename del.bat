@@ -1,0 +1,13 @@
+del /S *.exe 
+del /S *.obj 
+del /S *.ilk 
+del /S *.pdb 
+del /S *.plg 
+del /S *.bsc 
+del /S *.tmp 
+del /S *.trc 
+del /S *.pch 
+del /S *.idb 
+del /S *.exp 
+del /S *.sbr 
+del /S *.res 
