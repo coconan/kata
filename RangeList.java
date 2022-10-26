@@ -21,23 +21,27 @@ public class RangeList {
             return;
         }
         
+        List<Range> lowerRanges = new ArrayList<>();
+        List<Range> higherRanges = new ArrayList<>();
         List<Range> newRanges = new ArrayList<>();
-        for (int i = 0; i < ranges.size(); i++) {
-            if (range == null) { // range == null means it has been added to newRanges
-                newRanges.add(ranges.get(i));
-            } else if (ranges.get(i).lessThan(range)) {
-                newRanges.add(ranges.get(i));
-            } else if (range.intersectWith(ranges.get(i))) {
-                range = range.union(ranges.get(i));
+        /**
+         * loop invariant:
+         *   newRanges[i] is not empty
+         *   newRanges[i] lessThan newRanges[i+1]
+         *   newRanges[i] disjoint newRanges[i+1]
+         */
+        for (Range current : ranges) {
+            if (range.intersectWith(current)) {
+                range = range.union(current);
+            } else if (current.lessThan(range)) {
+                lowerRanges.add(current);
             } else {
-                newRanges.add(range);
-                newRanges.add(ranges.get(i));
-                range = null;
+                higherRanges.add(current);
             }
         }
-        if (range != null) {
-            newRanges.add(range);
-        }
+        newRanges.addAll(lowerRanges);
+        newRanges.add(range);
+        newRanges.addAll(higherRanges);
         ranges = newRanges;
     }
     
@@ -52,9 +56,15 @@ public class RangeList {
         }
 
         List<Range> newRanges = new ArrayList<>();
-        for (int i = 0; i < ranges.size(); i++) {
-            if (range.intersectWith(ranges.get(i))) {
-                List<Range> diffRanges = ranges.get(i).diff(range);
+        /**
+         * loop invariant:
+         *   newRanges[i] is not empty
+         *   newRanges[i] lessThan newRanges[i+1]
+         *   newRanges[i] disjoint newRanges[i+1]
+         */
+        for (Range current : ranges) {
+            if (range.intersectWith(current)) {
+                List<Range> diffRanges = current.diff(range);
                 if (!diffRanges.get(0).isEmpty()) {
                     newRanges.add(diffRanges.get(0));
                 }
@@ -62,7 +72,7 @@ public class RangeList {
                     newRanges.add(diffRanges.get(1));
                 }
             } else {
-                newRanges.add(ranges.get(i));
+                newRanges.add(current);
             }
         }
         ranges = newRanges;
