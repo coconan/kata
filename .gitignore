@@ -27,3 +27,6 @@ ipch
 *.ncb
 *.opt
 
+.DS_Store
+
+*.class
