@@ -42,3 +42,35 @@ class Solution {
         return result;
     }
 }
+
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode result = null;
+        ListNode cur = null;
+        int min = 10000+1;
+        int minIndex = -1;
+        do {
+            min = 10000+1;
+            minIndex = -1;
+            for (int i = 0; i < lists.length; i++) {
+                if (lists[i] != null && lists[i].val <= min) {
+                    min = lists[i].val;
+                    minIndex = i;
+                }
+            }
+            if (minIndex >= 0) {
+                if (result == null) {
+                    result = lists[minIndex];
+                    cur = lists[minIndex];
+                } else {
+                    cur.next = lists[minIndex];
+                    cur = lists[minIndex];   
+                }
+                lists[minIndex] = lists[minIndex].next;
+                cur.next = null;
+            }
+        } while (minIndex >= 0);
+
+        return result;
+    }
+}
